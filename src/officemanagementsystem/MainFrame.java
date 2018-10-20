@@ -25,7 +25,7 @@ public class MainFrame extends javax.swing.JFrame {
        try
    {
 Class.forName("com.mysql.jdbc.Driver");
-Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/contact","root","");
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/office_management","root","");
 
   }
        catch(Exception e){ System.out.println(e);

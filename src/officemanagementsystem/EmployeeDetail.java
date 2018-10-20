@@ -26,7 +26,7 @@ public class EmployeeDetail extends javax.swing.JFrame {
        try
    {
 Class.forName("com.mysql.jdbc.Driver");
-Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/contact","root","");
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/office_management","root","");
 String sql="select * from EmployeeDetails";
 Statement st=con.createStatement();
 ResultSet rs=st.executeQuery(sql);
@@ -150,11 +150,11 @@ i++;
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         int row = jTable1.getSelectedRow();
           String cell = jTable1.getModel().getValueAt(row, 0).toString();
-          String sql = "Delete from list where id = "+cell;
+          String sql = "Delete from EmployeeDetails where id = "+cell;
           try
           {
               Class.forName("com.mysql.jdbc.Driver");
-       Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/contact","root","");
+       Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/office_management","root","");
                PreparedStatement preparedSt = con.prepareStatement(sql);
                
                 preparedSt.execute();
@@ -167,7 +167,7 @@ i++;
                    System.out.println(e);
                    
                   }
-          new officemanagementsystem.MainFrame().setVisible(true);
+          new officemanagementsystem.EmployeeDetail().setVisible(true);
                                            
 
     }//GEN-LAST:event_jButton3ActionPerformed

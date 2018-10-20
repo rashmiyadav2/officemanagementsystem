@@ -5,6 +5,11 @@
  */
 package officemanagementsystem;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author IBM
@@ -56,6 +61,12 @@ public class EmployeeAdd extends javax.swing.JFrame {
 
         jLabel6.setText("Department");
 
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
@@ -68,9 +79,18 @@ public class EmployeeAdd extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Save");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("   Add New Employee");
@@ -151,6 +171,74 @@ public class EmployeeAdd extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField5ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try
+    {
+      // create a mysql database connection
+       Class.forName("com.mysql.jdbc.Driver");
+       Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/office_management","root","");
+      
+       
+       String Id =jTextField1.getText();
+      String Name=jTextField2.getText();
+      String Address=jTextField3.getText();
+   String Email=jTextField4.getText();
+      
+      Double Contact_No=Double.parseDouble(jTextField5.getText());
+      
+       String Department=jComboBox1.getItemAt(WIDTH);
+      
+
+      // the mysql insert statement
+      String query = " insert into EmployeeDetails (Id,Name,Address, Email,Contact_No,Department)"
+        + " values (?, ?, ?, ?,?,?)";
+
+      // create the mysql insert preparedstatement
+      PreparedStatement preparedSt = con.prepareStatement(query);
+       preparedSt.setString (1, Id);
+      preparedSt.setString (2, Name);
+      preparedSt.setString (3, Address);
+      preparedSt.setString (4, Email);
+      preparedSt.setDouble (5, Contact_No);
+      preparedSt.setString (6, Department);
+      
+
+      // execute the preparedstatement
+      preparedSt.execute();
+      
+      con.close();
+      JOptionPane.showMessageDialog(null, "added successfully");
+    }
+    catch (Exception e)
+    {
+        System.out.println(e);
+      System.err.println("Got an exception!");
+      System.err.println(e.getMessage());
+    }
+     jTextField1.setText("");
+     jTextField2.setText("");
+     jTextField3.setText("");
+     jTextField4.setText("");
+     jTextField5.setText("");
+     jComboBox1.setName("");
+      
+      new officemanagementsystem.EmployeeDetail().setVisible(true);
+                                  
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        Object selectedItem = jComboBox1.getSelectedItem();
+if (selectedItem != null)
+{
+    String selectedItemStr = selectedItem.toString();
+    Foo(selectedItemStr); // Some method that takes a string parameter.
+}
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -202,4 +290,8 @@ public class EmployeeAdd extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
+
+    private void Foo(String selectedItemStr) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
